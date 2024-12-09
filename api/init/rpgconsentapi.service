@@ -1,0 +1,20 @@
+[Unit]
+Description=RPG Consent Checklist API Service
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+WorkingDirectory=/home/shawn/code/RPG-Consent-Checklist/api
+ExecStart=/usr/local/bin/sops exec-env configs/secrets.yaml ./rpgconsentapi
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=rpgconsentapi
+User=shawn
+Group=www-data
+EnvironmentFile=/etc/environment
+Environment="GOROOT=/home/shawn/go"
+
+[Install]
+WantedBy=multi-user.target
